@@ -1,0 +1,23 @@
+<div class="flex flex-col gap-1 h-full">
+  <div class="flex flex-col h-full justify-center items-center gap-1.5">
+    <fa-duotone-icon
+      size="4x"
+      primaryColor="green"
+      secondaryColor="green"
+      [icon]="faBadgeCheck"
+    />
+    <div class="flex flex-col items-center">
+      <span class="text-center text-main-text-color font-semibold">
+        Payment Successfully Created
+      </span>
+      <span class="text-center text-sm text-secondary-text-color">
+        If you've auto process setup, your amount will be disbursed
+        automatically
+      </span>
+    </div>
+  </div>
+
+  <button (click)="viewPayment()" class="w-full p-3 rounded-md bg-common-blue text-white font-semibold">
+    View Payment
+  </button>
+</div>

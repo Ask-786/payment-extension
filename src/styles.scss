@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//=============== INTER ================= //
+@font-face {
+  font-family: "Inter";
+  src:
+    url("./assets/fonts/inter/Inter-Regular.woff2") format("woff2"),
+    url("./assets/fonts/inter/Inter-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-1.5 h-full">
+  <h1 class="font-semibold text-main-text-color">Choose Business</h1>
+  @if (!payrollApps()?.loading) {
+    <div class="flex flex-col h-full gap-2 overflow-y-auto p-0.5">
+      @for (item of payrollApps()?.data; track item) {
+        <button
+          [ngClass]="{
+            'outline outline-1 outline-common-blue':
+              item.id === currentBusiness?.id
+          }"
+          class="flex gap-2 py-2 px-2.5 rounded-sm shadow"
+          (click)="selectBusiness(item)"
+        >
+          <fa-duotone-icon class="text-blue-300" [icon]="faBriefcase" />
+          <span
+            [title]="item.name"
+            class="text-secondary-text-color text-nowrap overflow-hidden text-ellipsis"
+          >
+            {{ item.name }}
+          </span>
+        </button>
+      }
+    </div>
+  } @else {
+    <div class="h-full w-full flex items-center justify-center">
+      <fa-duotone-icon animation="spin" [icon]="faLoader" />
+    </div>
+  }
+
+  <button
+    class="w-full p-3 rounded-md bg-common-blue text-white font-semibold"
+    [disabled]="!currentBusiness"
+    (click)="submit()"
+  >
+    Create Payment
+  </button>
+</div>
