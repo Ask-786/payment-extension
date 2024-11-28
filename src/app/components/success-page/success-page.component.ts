@@ -1,15 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-  FaDuotoneIconComponent,
-  FaIconComponent,
-} from '@fortawesome/angular-fontawesome';
+import { FaDuotoneIconComponent } from '@fortawesome/angular-fontawesome';
 import { faBadgeCheck } from '@fortawesome/pro-duotone-svg-icons';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-success-page',
   standalone: true,
-  imports: [FaIconComponent, FaDuotoneIconComponent],
+  imports: [FaDuotoneIconComponent],
   templateUrl: './success-page.component.html',
   styles: `
     :host {

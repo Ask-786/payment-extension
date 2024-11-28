@@ -10,16 +10,15 @@ import { faCamera, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-take-screenshot',
-  standalone: true,
-  imports: [FaIconComponent, NgClass],
-  templateUrl: './take-screenshot.component.html',
-  styles: `
+    selector: 'app-take-screenshot',
+    imports: [FaIconComponent, NgClass],
+    templateUrl: './take-screenshot.component.html',
+    styles: `
     :host {
       height: 100%;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TakeScreenshotComponent {
   private cdr = inject(ChangeDetectorRef);

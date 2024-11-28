@@ -26,18 +26,17 @@ export const LOCAL_STORAGE_CONSTANTS = {
 };
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    SetApiKeyComponent,
-    FaIconComponent,
-    FaDuotoneIconComponent,
-    TakeScreenshotComponent,
-    ChooseAppsComponent,
-    SuccessPageComponent,
-  ],
-  templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-root',
+    imports: [
+        SetApiKeyComponent,
+        FaIconComponent,
+        FaDuotoneIconComponent,
+        TakeScreenshotComponent,
+        ChooseAppsComponent,
+        SuccessPageComponent,
+    ],
+    templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnDestroy {
   private cdr = inject(ChangeDetectorRef);

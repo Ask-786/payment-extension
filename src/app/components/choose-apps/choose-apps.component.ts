@@ -15,17 +15,16 @@ import { PayrollApp } from '../../model/model';
 import { faLoader, faBriefcase } from '@fortawesome/pro-duotone-svg-icons';
 
 @Component({
-  selector: 'app-choose-apps',
-  standalone: true,
-  imports: [FaDuotoneIconComponent, NgClass],
-  templateUrl: './choose-apps.component.html',
-  styles: `
+    selector: 'app-choose-apps',
+    imports: [FaDuotoneIconComponent, NgClass],
+    templateUrl: './choose-apps.component.html',
+    styles: `
     :host {
       height: 100%;
       overflow: hidden;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChooseAppsComponent {
   private cdr = inject(ChangeDetectorRef);

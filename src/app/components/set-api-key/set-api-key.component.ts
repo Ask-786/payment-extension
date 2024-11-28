@@ -1,16 +1,27 @@
-import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  output,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { LOCAL_STORAGE_CONSTANTS } from '../../app.component';
+import { NgClass } from '@angular/common';
+import { ApiService } from '../../services/api.service';
+import { finalize, firstValueFrom, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-set-api-key',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, NgClass],
   templateUrl: './set-api-key.component.html',
   styles: `
     :host {
@@ -19,20 +30,47 @@ import { LOCAL_STORAGE_CONSTANTS } from '../../app.component';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SetApiKeyComponent {
-  control = new FormControl<string | null>('', Validators.required);
+export class SetApiKeyComponent implements OnDestroy {
+  private apiService = inject(ApiService);
 
   valueSet = output<string>();
 
-  submit() {
-    if (this.control.invalid) return;
+  loading = signal(false);
 
-    const value = this.control.value;
+  destroy$ = new Subject();
 
-    if (!value) return;
+  form = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
 
-    chrome.storage.local.set({ [LOCAL_STORAGE_CONSTANTS.apiKey]: value });
+  async submit() {
+    if (this.form.invalid) return;
 
-    this.valueSet.emit(value);
+    const { username, password } = this.form.value;
+
+    if (!username || !password) return;
+
+    this.loading.set(true);
+    const res = await firstValueFrom(
+      this.apiService.getToken({ username, password }).pipe(
+        finalize(() => {
+          this.loading.set(false);
+        }),
+        takeUntil(this.destroy$),
+      ),
+    );
+
+    if (!res.success) return;
+
+    chrome.storage.local.set({
+      [LOCAL_STORAGE_CONSTANTS.apiKey]: res.data,
+    });
+    this.valueSet.emit(res.data);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

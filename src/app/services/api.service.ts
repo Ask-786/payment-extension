@@ -11,6 +11,13 @@ export class ApiService {
 
   private ROOT_URL = environment.rootUrl;
 
+  getToken(payload: { username: string; password: string }) {
+    return this.http.post<ApiRes<string>>(
+      `${this.ROOT_URL}/outside/chrome/get_token`,
+      payload,
+    );
+  }
+
   getBusinesses(key: string) {
     return this.http.get<ApiRes<PayrollApp[]>>(
       `${this.ROOT_URL}/outside/chrome/get_connected_payroll_companies`,
