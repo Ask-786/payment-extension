@@ -16,7 +16,15 @@ import {
 import { LOCAL_STORAGE_CONSTANTS } from '../../app.component';
 import { NgClass } from '@angular/common';
 import { ApiService } from '../../services/api.service';
-import { finalize, firstValueFrom, Subject, takeUntil } from 'rxjs';
+import {
+  catchError,
+  finalize,
+  firstValueFrom,
+  of,
+  Subject,
+  takeUntil,
+} from 'rxjs';
+import { ApiRes } from '../../model/model';
 
 @Component({
   selector: 'app-set-api-key',
@@ -43,6 +51,8 @@ export class SetApiKeyComponent implements OnDestroy {
     password: new FormControl('', Validators.required),
   });
 
+  error = signal('');
+
   async submit() {
     if (this.form.invalid) return;
 
@@ -56,16 +66,22 @@ export class SetApiKeyComponent implements OnDestroy {
         finalize(() => {
           this.loading.set(false);
         }),
+        catchError((err) => {
+          this.error.set(err.error.message);
+          return of({ success: false });
+        }),
         takeUntil(this.destroy$),
       ),
     );
 
     if (!res.success) return;
 
+    const apiKey = (res as ApiRes<string>).data;
+
     chrome.storage.local.set({
-      [LOCAL_STORAGE_CONSTANTS.apiKey]: res.data,
+      [LOCAL_STORAGE_CONSTANTS.apiKey]: apiKey,
     });
-    this.valueSet.emit(res.data);
+    this.valueSet.emit(apiKey);
   }
 
   ngOnDestroy(): void {

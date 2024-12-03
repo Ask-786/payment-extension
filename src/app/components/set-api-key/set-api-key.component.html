@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full justify-between">
+<form class="flex flex-col h-full justify-between">
   <div class="flex flex-col gap-1">
     <h1 class="font-semibold text-main-text-color">
       Process Payroll From Credit Card
@@ -33,12 +33,15 @@
         class="p-2 w-full rounded-md border border-gray-300 outline-none"
         formControlName="password"
         placeholder="Password"
-        type="text"
+        type="password"
       />
     </div>
   </div>
 
+  <div class="text-red-500 h-5 text-center text-sm">{{ error() }}</div>
+
   <button
+    type="submit"
     [disabled]="form.invalid"
     class="w-full p-3 rounded-md bg-common-blue text-white font-semibold flex gap-2 items-center justify-center"
     (click)="submit()"
@@ -50,7 +53,6 @@
         src="assets/svgs/spinner.svg"
         alt=""
       />
-
     }
   </button>
-</div>
+</form>

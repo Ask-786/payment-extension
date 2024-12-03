@@ -20,23 +20,24 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 import { FlowSteps, PayrollApp } from './model/model';
 import { faLoader } from '@fortawesome/pro-duotone-svg-icons';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 export const LOCAL_STORAGE_CONSTANTS = {
   apiKey: 'api-key',
 };
 
 @Component({
-    selector: 'app-root',
-    imports: [
-        SetApiKeyComponent,
-        FaIconComponent,
-        FaDuotoneIconComponent,
-        TakeScreenshotComponent,
-        ChooseAppsComponent,
-        SuccessPageComponent,
-    ],
-    templateUrl: './app.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-root',
+  imports: [
+    SetApiKeyComponent,
+    FaIconComponent,
+    FaDuotoneIconComponent,
+    TakeScreenshotComponent,
+    ChooseAppsComponent,
+    SuccessPageComponent,
+  ],
+  templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnDestroy {
   private cdr = inject(ChangeDetectorRef);
@@ -156,6 +157,10 @@ export class AppComponent implements OnDestroy {
 
   close() {
     window.close();
+  }
+
+  openHelp() {
+    window.open(environment.helpUrl, '_blank');
   }
 
   ngOnDestroy(): void {
