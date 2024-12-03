@@ -123,12 +123,9 @@ export class AppComponent implements OnDestroy {
   }
 
   setPayrollApp(app: PayrollApp) {
-    const key = this.apiKey;
-    const image = this.image;
+    if (!this.apiKey || !this.image) return;
 
-    if (!key || !image) return;
-
-    this.makePayment(key, image, app);
+    this.makePayment(this.apiKey, this.image, app);
   }
 
   makePayment(key: string, image: string, app: PayrollApp) {
