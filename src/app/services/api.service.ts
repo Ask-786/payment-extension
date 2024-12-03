@@ -21,9 +21,7 @@ export class ApiService {
   getBusinesses(key: string) {
     return this.http.get<ApiRes<PayrollApp[]>>(
       `${this.ROOT_URL}/outside/chrome/get_connected_payroll_companies`,
-      {
-        params: { key },
-      },
+      { params: { key } },
     );
   }
 
