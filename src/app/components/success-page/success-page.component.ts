@@ -5,7 +5,6 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-success-page',
-  standalone: true,
   imports: [FaDuotoneIconComponent],
   templateUrl: './success-page.component.html',
   styles: `

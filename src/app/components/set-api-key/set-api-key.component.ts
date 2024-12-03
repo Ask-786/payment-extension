@@ -20,7 +20,6 @@ import { finalize, firstValueFrom, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-set-api-key',
-  standalone: true,
   imports: [FormsModule, ReactiveFormsModule, NgClass],
   templateUrl: './set-api-key.component.html',
   styles: `
