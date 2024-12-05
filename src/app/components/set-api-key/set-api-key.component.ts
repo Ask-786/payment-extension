@@ -78,7 +78,7 @@ export class SetApiKeyComponent implements OnDestroy {
 
     const apiKey = (res as ApiRes<string>).data;
 
-    chrome.storage.local.set({
+    await chrome.storage.local.set({
       [LOCAL_STORAGE_CONSTANTS.apiKey]: apiKey,
     });
     this.valueSet.emit(apiKey);

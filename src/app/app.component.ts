@@ -106,9 +106,9 @@ export class AppComponent implements OnDestroy {
           if (!res.success) return;
           this.payrollApps.update((val) => ({ ...val, data: res.data }));
         },
-        error: (err: HttpErrorResponse) => {
+        error: async (err: HttpErrorResponse) => {
           if (err) {
-            chrome.storage.local.remove(LOCAL_STORAGE_CONSTANTS.apiKey);
+            await chrome.storage.local.remove(LOCAL_STORAGE_CONSTANTS.apiKey);
             window.close();
           }
         },
@@ -145,10 +145,10 @@ export class AppComponent implements OnDestroy {
       });
   }
 
-  removeApiKey(val: boolean) {
+  async removeApiKey(val: boolean) {
     if (!val) return;
 
-    chrome.storage.local.remove(LOCAL_STORAGE_CONSTANTS.apiKey);
+    await chrome.storage.local.remove(LOCAL_STORAGE_CONSTANTS.apiKey);
     this.currentStep.set('SET_API_KEY');
   }
 
